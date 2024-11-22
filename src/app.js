@@ -14,16 +14,20 @@ app.get('', (req, res) => {
     ipAddress: req.ip
   }
   console.log(req.ip)
-  // console.log(req.query.id)
-  // console.log(req.connection.remoteAddress)
-  InsertUser(req.ip)
 
-  fs.readFile(clickLogFile, (err, data) => {
-    const clicks = data ? JSON.parse(data) : []
+  const stats = fs.statSync(clickLogFile)
+  let clicks
+  if (stats.size === 0) {
+    clicks = []
     clicks.push(clickData)
-    fs.writeFile(clickLogFile, JSON.stringify(clicks), (err) => {
-      if (err) console.error('Error guardando clic:', err)
-    })
+  } else {
+    const fileContent = fs.readFileSync(clickLogFile)
+    clicks = JSON.parse(fileContent)
+    clicks.push(clickData)
+  }
+
+  fs.writeFile(clickLogFile, JSON.stringify(clicks), (err) => {
+    if (err) console.error('Error guardando clic:', err)
   })
 
   res.send(
