@@ -1,5 +1,6 @@
 import express from 'express'
 import fs from 'node:fs'
+import process from 'node:process'
 import { InsertUser } from './DB_Coneccion.js'
 
 const app = express()
@@ -13,10 +14,10 @@ app.get('', (req, res) => {
     ipAddress: req.ip
   }
   console.log(req.ip)
-  console.log(req.query.id)
+  // console.log(req.query.id)
 
   // console.log(req.connection.remoteAddress)
-  // InsertUser(req.ip)
+  InsertUser(req.ip)
 
   fs.readFile(clickLogFile, (err, data) => {
     const clicks = data ? JSON.parse(data) : []
@@ -31,6 +32,6 @@ app.get('', (req, res) => {
   )
 })
 
-app.listen(7000, () => {
+app.listen(process.env.PORT, () => {
   console.log('Servidor escuchando en http://localhost:7000')
 })
