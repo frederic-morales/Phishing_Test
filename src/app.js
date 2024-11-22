@@ -6,7 +6,9 @@ import { InsertUser } from './DB_Coneccion.js'
 const app = express()
 const clickLogFile = 'clicks.json'
 
-app.get('', (req, res) => {
+app.use('/', express.static('src\\page'))
+
+app.get('/', (req, res) => {
   const userId = req.query.id
   const clickData = {
     userId: userId,
@@ -30,9 +32,9 @@ app.get('', (req, res) => {
     if (err) console.error('Error guardando clic:', err)
   })
 
-  res.send(
-    '<h1>¡Has caído en una simulación de phishing!</h1><p>Aprende cómo evitar estos ataques...</p>'
-  )
+  // res.sendFile(
+  //   'C:\\Frederic\\WhatsAppProyect\\Desarrollo\\phisihing_test\\src\\page\\index.html'
+  // )
 })
 
 app.listen(process.env.PORT || 3000, () => {
