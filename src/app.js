@@ -6,7 +6,7 @@ import { InsertUser } from './DB_Coneccion.js'
 const app = express()
 const clickLogFile = 'clicks.json'
 
-app.use('/', express.static('src\\page'))
+app.use('/', express.static('src/page'))
 
 app.get('/', (req, res) => {
   const userId = req.query.id
