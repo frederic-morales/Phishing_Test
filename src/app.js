@@ -15,7 +15,6 @@ app.get('', (req, res) => {
   }
   console.log(req.ip)
   // console.log(req.query.id)
-
   // console.log(req.connection.remoteAddress)
   InsertUser(req.ip)
 
