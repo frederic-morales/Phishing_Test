@@ -12,8 +12,11 @@ app.get('', (req, res) => {
     timestamp: new Date().toISOString(),
     ipAddress: req.ip
   }
+  console.log(req.ip)
+  console.log(req.query.id)
 
-  InsertUser(req.ip)
+  // console.log(req.connection.remoteAddress)
+  // InsertUser(req.ip)
 
   fs.readFile(clickLogFile, (err, data) => {
     const clicks = data ? JSON.parse(data) : []
